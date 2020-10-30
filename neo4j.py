@@ -10,7 +10,7 @@ class Neo4jDb():
         neo.path_import = "~/Neo_Server/import"
         neo.nodes = [];
         neo.edges = [];
-            
+
     def clear(neo):
         input = "MATCH (n) DETACH DELETE n"
         neo.graph.run(input)
