@@ -1,7 +1,10 @@
 # hetionet
+CSCI 493.71
+Project 1
 
 ## Neo4j Setup
-Open neo4j.py
-Check under "def __init__ (neo)"
-Check user and password are correct for your server 
-Change "neo.path_####" with the proper locations for data
+- Make sure neo4j server is started
+- Open neo4j.py
+- Look under "def __init__ (neo)"
+- Check user and password are correct for your server 
+- Change "neo.path_####" with the proper locations for data
