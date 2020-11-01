@@ -1,10 +1,14 @@
 from neo4j import Neo4jDb
 
 def main():
+    #Creates neo4j database
     neo = Neo4jDb()
-    #neo.create()
+    neo.create()
     
+    #Creates mongo database
+    #insert mongodb server creation here
     
+    #Query Interface
     print ("Welcome to our Hetionet model!")
     
     done = False
@@ -30,7 +34,7 @@ disease excluding existing drugs).""")
                 print ("try again")
         
         if choice == "1":
-############ENTER CODE FOR MONGO QUERY HERE"
+            #ENTER CODE FOR MONGO QUERY HERE"
             print ("CODE FOR MONGO QUERY GOES HERE")
             
         else:

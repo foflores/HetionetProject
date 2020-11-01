@@ -4,14 +4,17 @@ from py2neo import Graph
 
 class Neo4jDb():
     def __init__(neo):
+        #Modify these lines to reflect database login information, data location, and neo4j import folder
         neo.graph = Graph(user="neo4j", password="password")
-        neo.path_nodes = "data/sample_nodes.tsv"
-        neo.path_edges = "data/sample_edges.tsv"
+        neo.path_nodes = "data/nodes_test.tsv"
+        neo.path_edges = "data/edges_test.tsv"
         neo.path_import = "/usr/local/Cellar/neo4j/4.1.3/libexec/import"
+        #Do not modify
         neo.nodes = []
         neo.edges = []
 
     def clear(neo):
+        #Clear database and neo4j import folder to prepare for data loading
         input = "MATCH (n) DETACH DELETE n"
         neo.graph.run(input)
         input = f"rm -r {neo.path_import}"
@@ -20,6 +23,7 @@ class Neo4jDb():
         os.system(input)
     
     def analyze_data(neo):
+        #Finds the names of all node and edge types
         with open (neo.path_nodes, 'r') as file:
             for line in file:
                 if line == 'id\tname\tkind\n':
@@ -37,6 +41,7 @@ class Neo4jDb():
                     neo.edges.append(data[1])
         
     def load_nodes(neo):
+        #Splits node data file by type, places them in neo4j import folder, and imports to database
         for node in neo.nodes:
             input = f"grep '{node}' {neo.path_nodes} >> {neo.path_import}/{node}.tsv"
             os.system(input)
@@ -49,6 +54,7 @@ class Neo4jDb():
             neo.graph.run(input)
             
     def load_edges(neo):
+        #Splits edge data file by type, places them in neo4j import folder, and imports to database
         for edge in neo.edges:
             edge_no_symbol = edge
             relationship = edge_no_symbol[1]
@@ -71,6 +77,7 @@ class Neo4jDb():
             neo.graph.run(input)
             
     def query_neo(neo, disease):
+        #Querys the database looking for all drugs that correspond to the given Query #2 and prints to terminal
         final_output = set()
         input = f"""MATCH (a:Compound)-[:r]-(b:Compound)-[:u]->(c:Gene)<-[:d]-(d:Anatomy)<-[:l]-(e:Disease {{name:'{disease}'}})
         WHERE NOT (a)-[:t]->(e)
@@ -100,7 +107,6 @@ class Neo4jDb():
         for x in output:
             final_output.add(x['b.name'])
     
-        #print ("\n")
         if (len(final_output) == 0):
             print ("\nNo drugs found")
         else:
@@ -109,6 +115,7 @@ class Neo4jDb():
                 print ("\t", output)
         
     def create(neo):
+        #Runs all steps in the creation of the database
         neo.clear()
         neo.analyze_data()
         neo.load_nodes()
