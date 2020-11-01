@@ -17,10 +17,16 @@ class Neo4jDb():
         #Clear database and neo4j import folder to prepare for data loading
         input = "MATCH (n) DETACH DELETE n"
         neo.graph.run(input)
-        input = f"rm -r {neo.path_import}"
-        os.system(input)
-        input = f"mkdir {neo.path_import}"
-        os.system(input)
+        if len(os.listdir(neo.path_import)) > 0:
+            input = f"rm -r {neo.path_import}/*"
+            os.system(input)
+        input = "CALL db.constraints"
+        constraints = neo.graph.run(input).data()
+        for constraint in constraints:
+            name = constraint['name']
+            input = f"DROP CONSTRAINT {name}"
+            neo.graph.run(input)
+        
     
     def analyze_data(neo):
         #Finds the names of all node and edge types
