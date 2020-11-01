@@ -4,6 +4,7 @@ from py2neo import Graph
 
 class Neo4jDb():
     def __init__(neo):
+<<<<<<< HEAD
         neo.graph = Graph(user="neo4j", password="password")
         neo.path_nodes = "data/sample_nodes.tsv"
         neo.path_edges = "data/sample_edges.tsv"
@@ -11,6 +12,15 @@ class Neo4jDb():
         neo.nodes = []
         neo.edges = []
             
+=======
+        neo.graph = Graph(user="neo4j", password="letmein")
+        neo.path_nodes = "data/nodes.tsv"
+        neo.path_edges = "data/edges.tsv"
+        neo.path_import = "~/Neo_Server/import"
+        neo.nodes = [];
+        neo.edges = [];
+
+>>>>>>> c27531dd1f3944377224fe60881d1ef558f2ba9a
     def clear(neo):
         input = "MATCH (n) DETACH DELETE n"
         neo.graph.run(input)
