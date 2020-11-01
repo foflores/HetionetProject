@@ -37,7 +37,7 @@ disease excluding existing drugs).""")
 
         if choice == "1":
             #ENTER CODE FOR MONGO QUERY HERE"
-            print("\nEnter the name of a disease to find its relevant info")
+            print("\nEnter the name of a disease to find its info")
             disease = input("\nDisease: ")
             # object instantiation
             mongo_db = MongoDb()
