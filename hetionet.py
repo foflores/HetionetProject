@@ -1,20 +1,22 @@
 from neo4j import Neo4jDb
+from mongodb import MongoDb
+
 
 def main():
     #Creates neo4j database
     neo = Neo4jDb()
     neo.create()
-    
+
     #Creates mongo database
     #insert mongodb server creation here
-    
+
     #Query Interface
-    print ("Welcome to our Hetionet model!")
-    
+    print("Welcome to our Hetionet model!")
+
     done = False
     while not done:
-        print ("\nWhich question would you like answered?")
-        print ("""\n1: Given a disease id, what is its name, what are drug
+        print("\nWhich question would you like answered?")
+        print("""\n1: Given a disease id, what is its name, what are drug
 names that can treat or palliate this disease, what are gene names
 that cause this disease, and where this disease occurs?
         
@@ -31,29 +33,39 @@ disease excluding existing drugs).""")
             if choice == "1" or choice == "2":
                 bool = False
             else:
-                print ("try again")
-        
+                print("try again")
+
         if choice == "1":
             #ENTER CODE FOR MONGO QUERY HERE"
-            print ("CODE FOR MONGO QUERY GOES HERE")
-            
+            print("\nEnter the name of a disease to find its relevant info")
+            disease = input("\nDisease: ")
+            # object instantiation
+            mongo_db = MongoDb()
+            # create the db using nodes and edge files
+            mongo_db.initializeDb()
+
+            # show query results
+            mongo_db.query(disease)
+
         else:
-            print ("\nEnter the name of a new disease to find all compounds that can treat it.")
+            print(
+                "\nEnter the name of a new disease to find all compounds that can treat it."
+            )
             disease = input("\nDisease: ")
             neo.query_neo(disease)
-            
+
         bool = True
         while bool:
-            choice = input("\nEnter '1' to run another query, or '2' to end program: ")
+            choice = input(
+                "\nEnter '1' to run another query, or '2' to end program: ")
             if choice == "1":
                 bool = False
             elif choice == "2":
                 bool = False
                 done = True
             else:
-                print ("try again")
+                print("try again")
 
-    
+
 if __name__ == "__main__":
     main()
-
