@@ -31,7 +31,8 @@ class MongoDb():
             datas = {'Anatomy': {}, 'Gene': {}, 'Disease': {}, 'Compound': {}}
 
             # read data file and create rows and cols variables
-            with open(os.path.join(self.data_path, "nodes.tsv"), "r") as nodes:
+            with open(os.path.join(self.data_path, "nodes_test.tsv"),
+                      "r") as nodes:
                 reader = csv.DictReader(nodes, delimiter="\t")
                 for row in reader:
                     datas[row['kind']][row['id']] = row['name']
@@ -47,7 +48,8 @@ class MongoDb():
                 }
 
         # create an object of arrays with each relationships
-            with open(os.path.join(self.data_path, "edges.tsv"), "r") as edges:
+            with open(os.path.join(self.data_path, "edges_test.tsv"),
+                      "r") as edges:
                 reader = csv.DictReader(edges, delimiter="\t")
                 for row in reader:
                     edge = row['metaedge']
@@ -97,6 +99,29 @@ class MongoDb():
         if colCount == 0:
             print("no data found for this disease")
             return
+
+    def separate(sep, res):
+        return sep.join(res)
+
+    def format(res):
+
+        # default case
+        if not res:
+            return "None"
+
+        #create group
+        res = [res[v:v + 5] for v in range(0, len(res), 5)]
+        #remove commas
+        commas = map(lambda v: separate(",", v) + ',', res)
+        return separate("\n\t", commas)[:-1]
+
+    print(f'{query}" we found the following:',
+          f'name => \n\t{name}',
+          f'compound that treats it => "{query}":\n{separate(treat)}',
+          f'compound that palliates it => "{query}":\n{separate(palliate)}',
+          f'gene that causes it => "{query}":\n{separate(gene)}',
+          f'where "{query}" occures => \n{separate(where)}',
+          sep='\n')
 
 
 mongo = MongoDb()
