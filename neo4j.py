@@ -4,23 +4,13 @@ from py2neo import Graph
 
 class Neo4jDb():
     def __init__(neo):
-<<<<<<< HEAD
         neo.graph = Graph(user="neo4j", password="password")
         neo.path_nodes = "data/sample_nodes.tsv"
         neo.path_edges = "data/sample_edges.tsv"
         neo.path_import = "/usr/local/Cellar/neo4j/4.1.3/libexec/import"
         neo.nodes = []
         neo.edges = []
-            
-=======
-        neo.graph = Graph(user="neo4j", password="letmein")
-        neo.path_nodes = "data/nodes.tsv"
-        neo.path_edges = "data/edges.tsv"
-        neo.path_import = "~/Neo_Server/import"
-        neo.nodes = [];
-        neo.edges = [];
 
->>>>>>> c27531dd1f3944377224fe60881d1ef558f2ba9a
     def clear(neo):
         input = "MATCH (n) DETACH DELETE n"
         neo.graph.run(input)
@@ -29,7 +19,6 @@ class Neo4jDb():
         input = f"mkdir {neo.path_import}"
         os.system(input)
     
-            
     def analyze_data(neo):
         with open (neo.path_nodes, 'r') as file:
             for line in file:
@@ -111,9 +100,13 @@ class Neo4jDb():
         for x in output:
             final_output.add(x['b.name'])
     
-        print (f"\nThese drugs will treat {disease}: ")
-        for output in final_output:
-           print ("\t", output)
+        #print ("\n")
+        if (len(final_output) == 0):
+            print ("\nNo drugs found")
+        else:
+            print (f"\nThese drugs will treat {disease}: ")
+            for output in final_output:
+                print ("\t", output)
         
     def create(neo):
         neo.clear()

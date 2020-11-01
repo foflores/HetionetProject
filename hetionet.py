@@ -2,7 +2,7 @@ from neo4j import Neo4jDb
 
 def main():
     neo = Neo4jDb()
-    neo.create()
+    #neo.create()
     
     
     print ("Welcome to our Hetionet model!")
