@@ -53,20 +53,21 @@ class MongoDb():
                 reader = csv.DictReader(edges, delimiter="\t")
                 for row in reader:
                     edge = row['metaedge']
-                if edge in map.keys():
-                    diseases[row[map[edge][0]]][map[edge][3]].append(
+                    if edge in map.keys():
+                        diseases[row[map[edge][0]]][map[edge][3]].append(
                         datas[map[edge][2]][row[map[edge][1]]])
 
-        self.mongo_collections.insert_many([v for _, v in diseases.items()])
+            self.mongo_collections.insert_many([v for _, v in diseases.items()])
 
     def query(self, query):
         cursor = self.mongo_collections.find({"id": query})
-
+        
         colCount = 0
 
         ## wild card count for result
         for _ in cursor:
             if colCount > 0:
+                #print ("it has columns")
                 break
             colCount = colCount + 1
 
@@ -99,30 +100,31 @@ class MongoDb():
         if colCount == 0:
             print("no data found for this disease")
             return
+            
+        print(f'\nFor {query} we found the following:\n',
+        f'\nname => {name}\n\n',
+        f'where {name} occurs =>')
+        if where:
+            for w in where:
+                print ("\t",w)
+        else:
+            print ("\tNone")
+        print ('\ncompound(s) that treat it =>')
+        if treat:
+            for t in treat:
+                print("\t",t)
+        else:
+            print("\tNone")
+        print ('\ncompound(s) that palliate it =>')
+        if palliate:
+            for p in palliate:
+                print("\t",p)
+        else:
+            print ("\tNone")
+        print('\ngene(s) that cause it =>')
+        if gene:
+            for g in gene:
+                print("\t",g)
+        else:
+            print ("\tNone")
 
-    def separate(sep, res):
-        return sep.join(res)
-
-    def format(res):
-
-        # default case
-        if not res:
-            return "None"
-
-        #create group
-        res = [res[v:v + 5] for v in range(0, len(res), 5)]
-        #remove commas
-        commas = map(lambda v: separate(",", v) + ',', res)
-        return separate("\n\t", commas)[:-1]
-
-    print(f'{query}" we found the following:',
-          f'name => \n\t{name}',
-          f'compound that treats it => "{query}":\n{separate(treat)}',
-          f'compound that palliates it => "{query}":\n{separate(palliate)}',
-          f'gene that causes it => "{query}":\n{separate(gene)}',
-          f'where "{query}" occures => \n{separate(where)}',
-          sep='\n')
-
-
-mongo = MongoDb()
-mongo.initializeDb()

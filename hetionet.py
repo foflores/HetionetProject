@@ -8,7 +8,8 @@ def main():
     neo.create()
 
     #Creates mongo database
-    #insert mongodb server creation here
+    mongo = MongoDb()
+    mongo.initializeDb()
 
     #Query Interface
     print("Welcome to our Hetionet model!")
@@ -36,16 +37,10 @@ disease excluding existing drugs).""")
                 print("try again")
 
         if choice == "1":
-            #ENTER CODE FOR MONGO QUERY HERE"
-            print("\nEnter the name of a disease to find its info")
-            disease = input("\nDisease: ")
-            # object instantiation
-            mongo_db = MongoDb()
-            # create the db using nodes and edge files
-            mongo_db.initializeDb()
-
+            print("\nEnter a disease ID to find its information")
+            disease = input("\nID: ")
             # show query results
-            mongo_db.query(disease)
+            mongo.query(disease)
 
         else:
             print(

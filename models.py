@@ -7,4 +7,4 @@ map_relationship = {
     "DlA": ['source', 'target', "Anatomy", "where"]
 }
 
-mongo_uri = "mongodb+srv://root:root@cluster0.3iybi.gcp.mongodb.net/hetionet?retryWrites=true&w=majority"
+mongo_uri = "mongodb://localhost:27017/"
