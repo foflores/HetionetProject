@@ -37,8 +37,8 @@ disease excluding existing drugs).""")
                 print("try again")
 
         if choice == "1":
-            print("\nEnter a disease ID to find its information")
-            disease = input("\nID: ")
+            print("\nEnter a disease ID or name to find its information")
+            disease = input("\nDisease: ")
             # show query results
             mongo.query(disease)
 

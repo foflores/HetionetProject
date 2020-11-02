@@ -122,6 +122,7 @@ class Neo4jDb():
         
     def create(neo):
         #Runs all steps in the creation of the database
+        print("Creating neo4j database")
         neo.clear()
         neo.analyze_data()
         neo.load_nodes()

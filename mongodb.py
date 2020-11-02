@@ -10,7 +10,7 @@ class MongoDb():
     # module class for mongo functions/set up
 
     def __init__(self):
-        self.data_path = os.path.join(os.getcwd(), "data")
+        self.data_path = ("data")
         self.mongo_client = pymongo.MongoClient(mongo_uri)
         self.mongo_db = self.mongo_client["hetionet"]
         self.mongo_collections = self.mongo_db["datas"]
@@ -21,18 +21,17 @@ class MongoDb():
 
         #if condition to check for database existence
         if "hetionet" in self.mongo_client.list_database_names():
-            print("a database exists")
+            print("Mongo database exists")
             return
         else:
-            print("no database exists, creating one for you")
+            print("Creating mongo Database")
 
             # we will attempt to create a data design for any individual disease
             diseases = {}
             datas = {'Anatomy': {}, 'Gene': {}, 'Disease': {}, 'Compound': {}}
 
             # read data file and create rows and cols variables
-            with open(os.path.join(self.data_path, "nodes_test.tsv"),
-                      "r") as nodes:
+            with open(f"{self.data_path}/nodes_test.tsv", "r") as nodes:
                 reader = csv.DictReader(nodes, delimiter="\t")
                 for row in reader:
                     datas[row['kind']][row['id']] = row['name']
@@ -41,15 +40,14 @@ class MongoDb():
                 diseases[k] = {
                     'id': k,
                     'name': v,
-                    "treat": [],
-                    "palliate": [],
-                    "gene": [],
-                    "where": []
+                    'treat': [],
+                    'palliate': [],
+                    'gene': [],
+                    'where': []
                 }
 
         # create an object of arrays with each relationships
-            with open(os.path.join(self.data_path, "edges_test.tsv"),
-                      "r") as edges:
+            with open(f"{self.data_path}/edges_test.tsv", "r") as edges:
                 reader = csv.DictReader(edges, delimiter="\t")
                 for row in reader:
                     edge = row['metaedge']
@@ -65,17 +63,15 @@ class MongoDb():
         colCount = 0
 
         ## wild card count for result
-        for _ in cursor:
+        for v in cursor:
             if colCount > 0:
-                #print ("it has columns")
                 break
             colCount = colCount + 1
 
         if colCount == 0:
-            next_cursor = self.mongo_collections.find({"name": query})
+            cursor = self.mongo_collections.find({"name": query})
         else:
             cursor.rewind()
-            next_cursor = cursor
 
         # data fetching by fields
 
@@ -102,8 +98,8 @@ class MongoDb():
             return
             
         print(f'\nFor {query} we found the following:\n',
-        f'\nname => {name}\n\n',
-        f'where {name} occurs =>')
+        f'\nname => {name}\n',
+        '\nwhere it occurs =>')
         if where:
             for w in where:
                 print ("\t",w)
