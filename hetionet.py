@@ -22,7 +22,7 @@ names that can treat or palliate this disease, what are gene names
 that cause this disease, and where this disease occurs?
         
 2: We assume that a compound can treat a disease if the compound or
-its resembled compound up-regulates/down- regulates a gene, but the
+its resembled compound up-regulates/down-regulates a gene, but the
 location down-regulates/up-regulates the gene in an opposite
 direction where the disease occurs. Find all compounds that can treat
 a new disease name (i.e. the missing edges between compound and
