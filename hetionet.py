@@ -1,17 +1,16 @@
 from neo4j import Neo4jDb
 from mongodb import MongoDb
 
-
 def main():
-    #Creates neo4j database
+    #creates neo4j database
     neo = Neo4jDb()
     neo.create()
 
-    #Creates mongo database
+    #creates mongo database
     mongo = MongoDb()
     mongo.initializeDb()
 
-    #Query Interface
+    #interface
     print("Welcome to our Hetionet model!")
 
     done = False
@@ -39,7 +38,7 @@ disease excluding existing drugs).""")
         if choice == "1":
             print("\nEnter a disease ID or name to find its information")
             disease = input("\nDisease: ")
-            # show query results
+            #show query results
             mongo.query(disease)
 
         else:

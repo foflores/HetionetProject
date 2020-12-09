@@ -1,14 +1,12 @@
 import csv
 import os
 import pymongo
-
 from models import map_relationship, mongo_uri
+
 map = map_relationship
 
-
 class MongoDb():
-    # module class for mongo functions/set up
-
+    #module class for mongo functions/set up
     def __init__(self):
         self.data_path = ("data")
         self.mongo_client = pymongo.MongoClient(mongo_uri)
@@ -26,11 +24,11 @@ class MongoDb():
         else:
             print("Creating mongo Database")
 
-            # we will attempt to create a data design for any individual disease
+            #we will attempt to create a data design for any individual disease
             diseases = {}
             datas = {'Anatomy': {}, 'Gene': {}, 'Disease': {}, 'Compound': {}}
 
-            # read data file and create rows and cols variables
+            #read data file and create rows and cols variables
             with open(f"{self.data_path}/nodes_test.tsv", "r") as nodes:
                 reader = csv.DictReader(nodes, delimiter="\t")
                 for row in reader:
@@ -46,7 +44,7 @@ class MongoDb():
                     'where': []
                 }
 
-        # create an object of arrays with each relationships
+            #create an object of arrays with each relationships
             with open(f"{self.data_path}/edges_test.tsv", "r") as edges:
                 reader = csv.DictReader(edges, delimiter="\t")
                 for row in reader:
@@ -62,7 +60,7 @@ class MongoDb():
         
         colCount = 0
 
-        ## wild card count for result
+        #wild card count for result
         for v in cursor:
             if colCount > 0:
                 break
@@ -73,8 +71,7 @@ class MongoDb():
         else:
             cursor.rewind()
 
-        # data fetching by fields
-
+        #data fetching by fields
         colCount = 0
         id = ""
         name = ""
