@@ -1,17 +1,21 @@
 <div align="center">
 	<a href="https://www.github.com/foflores10/hetionetproject">
-		<img src="images/hetionet.png" width="80" height="80">
+		<img src="media/icon.png">
 	</a>
 	<h3>Hetionet Project</h3>
+	<p>Created by: Favian Flores and MD Uddin</p>
 </div>
 
 ## About The Project
-- Fall 2020
-- CSCI 493.71
-- Project 1
+
+[Hetionet](het.io) is a network of biomedical knowledge assembled from a variety of databases. It combines information into a single resource and allows researchers to formulate insights based on the data.
+
+This project aims to recreate Hetionet using MongoDB and Neo4J databases to learn the importance of proper database design when working with big data.
 
 ## Getting Started
+
 ### Dependencies
+
 - Python 3.9
 - JDK 11
 - Mongodb 4.4
@@ -21,15 +25,14 @@
 
 ### Installation
 
+- Neo4j Setup
+	1. Open `neo4j.py`
+	2. Look under `def __init__ (neo)`
+	3. Check `user` and `password` are correct for your server
+	4. Change `neo.path_####` with the proper locations for data
+	5. Make sure neo4j server is started
 
-1. Neo4j Setup
-	- Open `neo4j.py`
-	- Look under `def __init__ (neo)`
-	- Check `user` and `password` are correct for your server
-	- Change `neo.path_####` with the proper locations for data
-	- Make sure neo4j server is started
-
-2. Mongodb Setup
-	- Open `models.py`
-	- Make sure `mongo_uri` is correct for your server
-	- Make sure mongodb server is started
+- Mongodb Setup
+	1. Open `models.py`
+	2. Make sure `mongo_uri` is correct for your server
+	3. Make sure mongodb server is started
