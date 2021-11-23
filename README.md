@@ -1,6 +1,6 @@
 <div align="center">
 	<a href="https://www.github.com/foflores10/hetionetproject">
-		<img src="https://media.foflores.com/projects/hetionetproject/icon.png" width=128>
+		<img src="https://media.foflores.com/projects/hetionet/icon.png" width=128>
 	</a>
 	<h3>Hetionet Project</h3>
 	<p>Created by: Favian Flores and MD Uddin</p>
